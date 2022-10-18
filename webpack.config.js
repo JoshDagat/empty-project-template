@@ -7,6 +7,18 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   mode: mode,
 
+  module: {
+    rules: [
+      {
+        test: /.\js$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+    ],
+  },
+
   devServer: {
     static: './dist',
     hot: true,
