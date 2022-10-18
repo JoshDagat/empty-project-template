@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   mode: mode,
 
+  entry: path.resolve(__dirname, 'src', 'js', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: `images/[hash][ext][query]`,
@@ -20,18 +21,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.\(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource'
       },
       {
-        test: /.\js$/i,
+        test: /\.js$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
       },
       {
-        test: /.\s?css$/i,
+        test: /\.s?css$/i,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
