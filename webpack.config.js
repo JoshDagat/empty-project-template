@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -15,7 +16,8 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'js', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: `images/[hash][ext][query]`,
+    publicPath: '/',
+    assetModuleFilename: `images/[name][ext]`,
   },
 
   module: {
@@ -51,6 +53,11 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, 'src', 'images'), to: path.resolve(__dirname, 'dist', 'images') }
+      ],
     }),
   ],
 
